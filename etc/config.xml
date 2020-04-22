@@ -18,8 +18,8 @@
                 <html_content>Notification html content example</html_content>
                 <text>Notification text example</text>
                 <font_size>18</font_size>
-                <bg_color>#000000</bg_color>
-                <text_color>#ffffff</text_color>
+                <bg_color>#fffffff</bg_color>
+                <text_color>#000000</text_color>
             </design>
         </topbar_notification>
     </default>
