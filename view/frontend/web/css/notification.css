@@ -1,0 +1,27 @@
+/**
+ * Magenable
+ *
+ * @category    Magenable
+ * @package     Magenable_TopBarNotification
+ * @copyright   Copyright (c) Magenable (https://magenable.com.au/)
+ */
+.notification {
+    position: relative;
+}
+
+.notification_type_text {
+    display:         flex;
+    justify-content: center;
+    align-items:     center;
+    text-align:      center;
+    padding:         15px 0;
+}
+
+.notification__close-btn {
+    cursor:   pointer;
+    width:    20px;
+    height:   20px;
+    position: absolute;
+    right:    5px;
+    top:      5px;
+}

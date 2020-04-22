@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magenable
+ *
+ * @category    Magenable
+ * @package     Magenable_TopBarNotification
+ * @copyright   Copyright (c) Magenable (https://magenable.com.au/)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <topbar_notification>
+            <general>
+                <enabled>1</enabled>
+            </general>
+            <design>
+                <html_content><div style="text-align:center">Example notification content</div></html_content>
+                <text>Example notification text</text>
+                <font_size>18</font_size>
+                <bg_color>#000000</bg_color>
+                <text_color>#ffffff</text_color>
+            </design>
+        </topbar_notification>
+    </default>
+</config>

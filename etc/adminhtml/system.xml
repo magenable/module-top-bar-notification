@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magenable
+ *
+ * @category    Magenable
+ * @package     Magenable_TopBarNotification
+ * @copyright   Copyright (c) Magenable (https://magenable.com.au/)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magenable" translate="label" sortOrder="100">
+            <label>Magenable</label>
+        </tab>
+        <section id="topbar_notification" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Top Bar Notification</label>
+            <tab>magenable</tab>
+            <resource>Magenable_TopbarNotification::topbarnotification</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="design" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Design</label>
+                <field id="content_type" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Content type</label>
+                    <source_model>Magenable\TopBarNotification\Model\Config\Source\ContentType</source_model>
+                </field>
+                <field id="html_content" sortOrder="2" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>HTML content</label>
+                    <comment>Insert HTML</comment>
+                    <depends>
+                        <field id="content_type">1</field>
+                    </depends>
+                </field>
+                <field id="text" sortOrder="2" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Text</label>
+                    <depends>
+                        <field id="content_type">2</field>
+                    </depends>
+                </field>
+                <field id="font_size" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Font size</label>
+                    <validate>validate-digits</validate>
+                    <comment>In pixel</comment>
+                    <depends>
+                        <field id="content_type">2</field>
+                    </depends>
+                </field>
+                <field id="bg_color" sortOrder="4" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Background color</label>
+                    <validate>jscolor {hash:true,refine:false}</validate>
+                    <depends>
+                        <field id="content_type">2</field>
+                    </depends>
+                </field>
+                <field id="text_color" sortOrder="5" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Text color</label>
+                    <validate>jscolor {hash:true,refine:false}</validate>
+                    <depends>
+                        <field id="content_type">2</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="pages_to_show" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Pages to show/hide</label>
+                <field id="include_pages_with_url" sortOrder="30" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include Page(s) with URL contains</label>
+                    <comment>Separated by a new line, ex. "/"</comment>
+                </field>
+                <field id="exclude_pages_with_url" sortOrder="50" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Exclude Page(s) with URL contains</label>
+                    <comment>Separated by a new line</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

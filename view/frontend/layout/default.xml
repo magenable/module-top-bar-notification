@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magenable
+ *
+ * @category    Magenable
+ * @package     Magenable_TopBarNotification
+ * @copyright   Copyright (c) Magenable (https://magenable.com.au/)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magenable_TopBarNotification::css/notification.css"/>
+    </head>
+    <body>
+        <referenceContainer name="after.body.start" label="Page Top">
+            <block name="notification" before="-" template="Magenable_TopBarNotification::notification.phtml" ifconfig="topbar_notification/general/enabled">
+                <arguments>
+                    <argument xsi:type="object" name="details">Magenable\TopBarNotification\ViewModel\Notification</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
