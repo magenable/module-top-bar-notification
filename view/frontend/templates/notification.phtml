@@ -1,0 +1,42 @@
+<?php
+declare(strict_types=1);
+
+/**
+ * Magenable
+ *
+ * @category    Magenable
+ * @package     Magenable_TopBarNotification
+ * @copyright   Copyright (c) Magenable (https://magenable.com.au/)
+ */
+
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var $view \Magenable\TopBarNotification\ViewModel\Notification */
+$view = $block->getData('details');
+?>
+
+<?php if ($view->isAllowed()): ?>
+    <?php if ($view->isTextNotification()): ?>
+        <div
+            class="notification notification_type_text"
+            data-mage-init='{"notification": {"closeButtonSelector": "#notification-close-btn"}}'
+            style="background-color: <?= $view->getBackgroundColor(); ?>"
+        >
+            <div class="notification__text" style="color: <?= $view->getTextColor(); ?>; font-size: <?= $view->getFontSize() ?>">
+                <?= $view->getText() ?>
+            </div>
+            <div id="notification-close-btn" class="notification__close-btn">
+                <img src="<?= $block->getViewFileUrl('Magenable_TopBarNotification::images/icon-close.png') ?>"/>
+            </div>
+        </div>
+    <?php else: ?>
+        <div
+             class="notification notification_type_html"
+             data-mage-init='{"notification": {"closeButtonSelector": "#notification-close-btn"}}'
+        >
+            <?= $view->getHtmlContent() ?>
+            <div id="notification-close-btn" class="notification__close-btn">
+                <img src="<?= $block->getViewFileUrl('Magenable_TopBarNotification::images/icon-close.png') ?>"/>
+            </div>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
