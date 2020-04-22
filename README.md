@@ -1,6 +1,6 @@
 # Magenable_TopBarNotification
 
-**Top Bar Notification** is a Magento 2 extension to display notice at the top of Magento store pages, before all other content.
+**Top Bar Notification** is a Magento 2 extension to display a banner/notice at the top of Magento store pages, before all other content.
 
 ## The extension was developed as a quick way to display COVID-19 notice, but can be used for other notices as well
 
@@ -60,4 +60,4 @@ Tested with Magento Open Source 2.3.2-2.3.4, but will probably work with older M
 
 # About developer
 
-The extension is developed by Magenable (https://magenable.com.au), eCommerce consultany specializing in Magento based in Melbourne, Australia
+The extension is developed by Magenable (https://magenable.com.au), eCommerce consultancy specializing in Magento based in Melbourne, Australia
