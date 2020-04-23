@@ -18,25 +18,21 @@ $view = $block->getData('details');
     <?php if ($view->isTextNotification()): ?>
         <div
             class="notification notification_type_text"
-            data-mage-init='{"notification": {"closeButtonSelector": "#notification-close-btn"}}'
+            data-mage-init='<?= $view->getConfigData() ?>'
             style="background-color: <?= $view->getBackgroundColor(); ?>"
         >
             <div class="notification__text" style="color: <?= $view->getTextColor(); ?>; font-size: <?= $view->getFontSize() ?>">
                 <?= $view->getText() ?>
             </div>
-            <div id="notification-close-btn" class="notification__close-btn">
-                <img src="<?= $block->getViewFileUrl('Magenable_TopBarNotification::images/icon-close.png') ?>"/>
-            </div>
+            <div id="notification-close-btn" class="notification__close-btn"></div>
         </div>
     <?php else: ?>
         <div
              class="notification notification_type_html"
-             data-mage-init='{"notification": {"closeButtonSelector": "#notification-close-btn"}}'
+             data-mage-init='<?= $view->getConfigData() ?>'
         >
             <?= $view->getHtmlContent() ?>
-            <div id="notification-close-btn" class="notification__close-btn">
-                <img src="<?= $block->getViewFileUrl('Magenable_TopBarNotification::images/icon-close.png') ?>"/>
-            </div>
+            <div id="notification-close-btn" class="notification__close-btn"></div>
         </div>
     <?php endif; ?>
 <?php endif; ?>

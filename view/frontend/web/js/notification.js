@@ -11,8 +11,14 @@ define([
     "use strict";
 
     return function(config, element) {
-        $(config.closeButtonSelector).on('click', function() {
+        $(config.closeBtnSelector).on('click', function() {
             $(element).fadeOut(300);
+
+            $.ajax({
+                url: config.closeNotificationUrl,
+                dataType: 'json',
+                type: 'GET'
+            });
         });
     }
 });

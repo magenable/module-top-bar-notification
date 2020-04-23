@@ -14,7 +14,7 @@
     </head>
     <body>
         <referenceContainer name="after.body.start" label="Page Top">
-            <block name="notification" before="-" template="Magenable_TopBarNotification::notification.phtml" ifconfig="topbar_notification/general/enabled">
+            <block name="notification" before="-" template="Magenable_TopBarNotification::notification.phtml" cacheable="false" ifconfig="topbar_notification/general/enabled">
                 <arguments>
                     <argument xsi:type="object" name="details">Magenable\TopBarNotification\ViewModel\Notification</argument>
                 </arguments>

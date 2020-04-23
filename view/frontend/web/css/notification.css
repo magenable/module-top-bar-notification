@@ -17,11 +17,17 @@
     padding:         15px 0;
 }
 
+.notification_type_html {
+    min-height: 30px;
+}
+
 .notification__close-btn {
-    cursor:   pointer;
-    width:    20px;
-    height:   20px;
-    position: absolute;
-    right:    5px;
-    top:      5px;
+    background:      url(../images/icon-close.png) no-repeat;
+    background-size: cover;
+    cursor:          pointer;
+    width:           20px;
+    height:          20px;
+    position:        absolute;
+    right:           5px;
+    top:             5px;
 }

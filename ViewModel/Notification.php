@@ -11,11 +11,13 @@ declare(strict_types=1);
 
 namespace Magenable\TopBarNotification\ViewModel;
 
+use Magenable\TopBarNotification\Model\Config\Source\ContentType;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\AuthorizationInterface;
+use Magento\Framework\Serialize\Serializer\Json;
+use Magento\Framework\Session\SessionManagerInterface;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
-use Magenable\TopBarNotification\Model\Config\Source\ContentType;
 
 /**
  * Class Notification
@@ -39,19 +41,51 @@ class Notification implements ArgumentInterface
      */
     private $url;
 
+    /**
+     * @var SessionManagerInterface
+     */
+    private $sessionManager;
+
+    /**
+     * @var Json
+     */
+    private $jsonHelper;
+
+    /**
+     * Notification constructor.
+     *
+     * @param AuthorizationInterface  $authorization
+     * @param ScopeConfigInterface    $scopeConfig
+     * @param SessionManagerInterface $sessionManager
+     * @param UrlInterface            $url
+     * @param Json                    $jsonHelper
+     */
     public function __construct(
         AuthorizationInterface $authorization,
         ScopeConfigInterface $scopeConfig,
-        UrlInterface $url
+        SessionManagerInterface $sessionManager,
+        UrlInterface $url,
+        Json $jsonHelper
     ) {
-        $this->authorization = $authorization;
-        $this->scopeConfig   = $scopeConfig;
-        $this->url           = $url;
+        $this->authorization  = $authorization;
+        $this->scopeConfig    = $scopeConfig;
+        $this->url            = $url;
+        $this->sessionManager = $sessionManager;
+        $this->jsonHelper     = $jsonHelper;
     }
 
+    /**
+     * Is block render allowed.
+     *
+     * @return bool
+     */
     public function isAllowed(): bool
     {
         if ($this->scopeConfig->isSetFlag('topbar_notification/general/enabled') === false) {
+            return false;
+        }
+
+        if ($this->sessionManager->getNotificationClosed()) {
             return false;
         }
 
@@ -60,21 +94,41 @@ class Notification implements ArgumentInterface
         return $this->checkIsPageAllowed($urlPath);
     }
 
+    /**
+     * Is text notification.
+     *
+     * @return bool
+     */
     public function isTextNotification(): bool
     {
         return (int)$this->getConfigValue('design', 'content_type') === ContentType::TEXT;
     }
 
+    /**
+     * Get html content,
+     *
+     * @return string
+     */
     public function getHtmlContent(): string
     {
         return $this->getConfigValue('design', 'html_content') ?? '';
     }
 
+    /**
+     * Get text content.
+     *
+     * @return string
+     */
     public function getText(): string
     {
         return $this->getConfigValue('design', 'text') ?? '';
     }
 
+    /**
+     * Get font size.
+     *
+     * @return string
+     */
     public function getFontSize(): string
     {
         $value = 'auto';
@@ -86,16 +140,49 @@ class Notification implements ArgumentInterface
         return $value;
     }
 
+    /**
+     * Get background color.
+     *
+     * @return string
+     */
     public function getBackgroundColor(): string
     {
         return $this->getConfigValue('design', 'bg_color') ?? 'auto';
     }
 
+    /**
+     * Get text color.
+     *
+     * @return string
+     */
     public function getTextColor(): string
     {
         return $this->getConfigValue('design', 'text_color') ?? 'auto';
     }
 
+    /**
+     * Get config data.
+     *
+     * @return array
+     */
+    public function getConfigData(): string
+    {
+        return $this->jsonHelper->serialize([
+            'notification' => [
+                'closeNotificationUrl' => $this->url->getUrl('top_bar_notification/ajax/close'),
+                'closeBtnSelector'     => '#notification-close-btn',
+            ],
+        ]);
+    }
+
+    /**
+     * Get config value
+     *
+     * @param string $group
+     * @param string $field
+     *
+     * @return mixed
+     */
     private function getConfigValue(string $group, string $field)
     {
         $path = "topbar_notification/$group/$field";
@@ -103,6 +190,13 @@ class Notification implements ArgumentInterface
         return $this->scopeConfig->getValue($path);
     }
 
+    /**
+     * Check is page allowed.
+     *
+     * @param $url
+     *
+     * @return bool
+     */
     private function checkIsPageAllowed($url)
     {
         $includePagesConf = $this->getConfigValue('pages_to_show', 'include_pages_with_url');
@@ -115,7 +209,7 @@ class Notification implements ArgumentInterface
         }
 
         $excludePagesConf = $this->getConfigValue('pages_to_show', 'exclude_pages_with_url');
-        if ($includePagesConf !== null) {
+        if ($excludePagesConf !== null) {
             $arrayPages   = explode(PHP_EOL, $excludePagesConf);
             $excludePages = array_map('trim', $arrayPages);
 
