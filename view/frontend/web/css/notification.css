@@ -8,6 +8,9 @@
 .notification {
     position: relative;
 }
+.notification.hidden {
+    display: none;
+}
 
 .notification_type_text {
     display:         flex;

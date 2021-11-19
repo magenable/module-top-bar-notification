@@ -14,10 +14,10 @@ declare(strict_types=1);
 $view = $block->getData('details');
 ?>
 
-<?php if ($view->isAllowed()): ?>
+<?php if ($view->isEnabled()): ?>
     <?php if ($view->isTextNotification()): ?>
         <div
-            class="notification notification_type_text"
+            class="notification hidden notification_type_text"
             data-mage-init='<?= $view->getConfigData() ?>'
             style="background-color: <?= $view->getBackgroundColor(); ?>"
         >
@@ -28,7 +28,7 @@ $view = $block->getData('details');
         </div>
     <?php else: ?>
         <div
-             class="notification notification_type_html"
+             class="notification hidden notification_type_html"
              data-mage-init='<?= $view->getConfigData() ?>'
         >
             <?= $view->getHtmlContent() ?>

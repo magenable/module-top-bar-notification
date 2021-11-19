@@ -13,10 +13,7 @@ namespace Magenable\TopBarNotification\ViewModel;
 
 use Magenable\TopBarNotification\Model\Config\Source\ContentType;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Magento\Framework\AuthorizationInterface;
 use Magento\Framework\Serialize\Serializer\Json;
-use Magento\Framework\Session\SessionManagerInterface;
-use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 
 /**
@@ -25,26 +22,10 @@ use Magento\Framework\View\Element\Block\ArgumentInterface;
  */
 class Notification implements ArgumentInterface
 {
-
-    /**
-     * @var AuthorizationInterface
-     */
-    private $authorization;
-
     /**
      * @var ScopeConfigInterface
      */
     private $scopeConfig;
-
-    /**
-     * @var UrlInterface
-     */
-    private $url;
-
-    /**
-     * @var SessionManagerInterface
-     */
-    private $sessionManager;
 
     /**
      * @var Json
@@ -54,44 +35,15 @@ class Notification implements ArgumentInterface
     /**
      * Notification constructor.
      *
-     * @param AuthorizationInterface  $authorization
      * @param ScopeConfigInterface    $scopeConfig
-     * @param SessionManagerInterface $sessionManager
-     * @param UrlInterface            $url
      * @param Json                    $jsonHelper
      */
     public function __construct(
-        AuthorizationInterface $authorization,
         ScopeConfigInterface $scopeConfig,
-        SessionManagerInterface $sessionManager,
-        UrlInterface $url,
         Json $jsonHelper
     ) {
-        $this->authorization  = $authorization;
         $this->scopeConfig    = $scopeConfig;
-        $this->url            = $url;
-        $this->sessionManager = $sessionManager;
         $this->jsonHelper     = $jsonHelper;
-    }
-
-    /**
-     * Is block render allowed.
-     *
-     * @return bool
-     */
-    public function isAllowed(): bool
-    {
-        if (!$this->isEnabled()) {
-            return false;
-        }
-
-        if ($this->sessionManager->getNotificationClosed()) {
-            return false;
-        }
-
-        $urlPath = parse_url($this->url->getCurrentUrl(), PHP_URL_PATH);
-
-        return $this->checkIsPageAllowed($urlPath);
     }
 
     /**
@@ -193,15 +145,16 @@ class Notification implements ArgumentInterface
     /**
      * Get config data.
      *
-     * @return array
+     * @return string
      */
     public function getConfigData(): string
     {
         return $this->jsonHelper->serialize([
             'notification' => [
-                'closeNotificationUrl' => $this->url->getUrl('top_bar_notification/ajax/close'),
-                'closeBtnSelector'     => '#notification-close-btn',
-            ],
+                'closeBtnSelector' => '#notification-close-btn',
+                'includePages' => $this->getIncludePages(),
+                'excludePages' => $this->getExcludePages()
+            ]
         ]);
     }
 
@@ -218,36 +171,5 @@ class Notification implements ArgumentInterface
         $path = "topbar_notification/$group/$field";
 
         return $this->scopeConfig->getValue($path);
-    }
-
-    /**
-     * Check is page allowed.
-     *
-     * @param $url
-     *
-     * @return bool
-     */
-    private function checkIsPageAllowed($url)
-    {
-        $includePagesConf = $this->getIncludePages();
-        if ($includePagesConf !== null) {
-            $arrayPages       = explode(PHP_EOL, $includePagesConf);
-            $includePagesConf = array_map('trim', $arrayPages);
-            if (count($includePagesConf) !== 0) {
-                return in_array($url, $includePagesConf, true);
-            }
-        }
-
-        $excludePagesConf = $this->getExcludePages();
-        if ($excludePagesConf !== null) {
-            $arrayPages   = explode(PHP_EOL, $excludePagesConf);
-            $excludePages = array_map('trim', $arrayPages);
-
-            if (count($excludePages) !== 0) {
-                return !in_array($url, $excludePages, true);
-            }
-        }
-
-        return true;
     }
 }
