@@ -1,0 +1,23 @@
+type Query {
+    getTopBarNotificationConfig: TopBarNotificationConfig @resolver(class: "\\Magenable\\TopBarNotification\\Model\\Resolver\\TopBarNotificationConfigResolver")
+    @doc(description: "Return the configuration for top bar notification")
+}
+
+type TopBarNotificationConfig @doc(description: "Configuration of top bar notification") {
+    enabled: Boolean
+    @doc(description: "Is top bar notification enabled")
+    is_text: Boolean
+    @doc(description: "Content type is TEXT")
+    content: String
+    @doc(description: "Content of notification")
+    font_size: String
+    @doc(description: "Font size for text of notification (if content_type=text)")
+    background_color: String
+    @doc(description: "Background color for notification (if content_type=text)")
+    text_color: String
+    @doc(description: "Text color of notification (if content_type=text)")
+    include_urls: String
+    @doc(description: "Include Page(s) with URL contains")
+    exclude_urls: String
+    @doc(description: "Exclude Page(s) with URL contains")
+}

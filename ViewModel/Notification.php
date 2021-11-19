@@ -81,7 +81,7 @@ class Notification implements ArgumentInterface
      */
     public function isAllowed(): bool
     {
-        if ($this->scopeConfig->isSetFlag('topbar_notification/general/enabled') === false) {
+        if (!$this->isEnabled()) {
             return false;
         }
 
@@ -92,6 +92,16 @@ class Notification implements ArgumentInterface
         $urlPath = parse_url($this->url->getCurrentUrl(), PHP_URL_PATH);
 
         return $this->checkIsPageAllowed($urlPath);
+    }
+
+    /**
+     * Is enabled.
+     *
+     * @return bool
+     */
+    public function isEnabled(): bool
+    {
+        return (bool)$this->getConfigValue('general', 'enabled');
     }
 
     /**
@@ -161,6 +171,26 @@ class Notification implements ArgumentInterface
     }
 
     /**
+     * Get include page(s).
+     *
+     * @return string|null
+     */
+    public function getIncludePages(): ?string
+    {
+        return $this->getConfigValue('pages_to_show', 'include_pages_with_url');
+    }
+
+    /**
+     * Get exclude page(s).
+     *
+     * @return string|null
+     */
+    public function getExcludePages(): ?string
+    {
+        return $this->getConfigValue('pages_to_show', 'exclude_pages_with_url');
+    }
+
+    /**
      * Get config data.
      *
      * @return array
@@ -199,7 +229,7 @@ class Notification implements ArgumentInterface
      */
     private function checkIsPageAllowed($url)
     {
-        $includePagesConf = $this->getConfigValue('pages_to_show', 'include_pages_with_url');
+        $includePagesConf = $this->getIncludePages();
         if ($includePagesConf !== null) {
             $arrayPages       = explode(PHP_EOL, $includePagesConf);
             $includePagesConf = array_map('trim', $arrayPages);
@@ -208,7 +238,7 @@ class Notification implements ArgumentInterface
             }
         }
 
-        $excludePagesConf = $this->getConfigValue('pages_to_show', 'exclude_pages_with_url');
+        $excludePagesConf = $this->getExcludePages();
         if ($excludePagesConf !== null) {
             $arrayPages   = explode(PHP_EOL, $excludePagesConf);
             $excludePages = array_map('trim', $arrayPages);
