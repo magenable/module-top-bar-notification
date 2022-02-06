@@ -1,6 +1,4 @@
 <?php
-declare(strict_types=1);
-
 /**
  * Magenable
  *
@@ -8,30 +6,34 @@ declare(strict_types=1);
  * @package     Magenable_TopBarNotification
  * @copyright   Copyright (c) Magenable (https://magenable.com.au/)
  */
+declare(strict_types=1);
 
 /** @var $block \Magento\Framework\View\Element\Template */
 /** @var $view \Magenable\TopBarNotification\ViewModel\Notification */
 $view = $block->getData('details');
 ?>
-
 <?php if ($view->isEnabled()): ?>
     <?php if ($view->isTextNotification()): ?>
         <div
             class="notification hidden notification_type_text"
-            data-mage-init='<?= $view->getConfigData() ?>'
-            style="background-color: <?= $view->getBackgroundColor(); ?>"
+            data-mage-init='<?= $block->escapeHtmlAttr($view->getConfigData()) ?>'
+            style="background-color: <?= $block->escapeCss($view->getBackgroundColor()); ?>"
         >
-            <div class="notification__text" style="color: <?= $view->getTextColor(); ?>; font-size: <?= $view->getFontSize() ?>">
-                <?= $view->getText() ?>
+            <div class="notification__text"
+                 style="
+                     color: <?= $block->escapeCss($view->getTextColor()) ?>;
+                     font-size: <?= $block->escapeCss($view->getFontSize()) ?>
+                     ">
+                <?= $block->escapeHtml($view->getText()) ?>
             </div>
             <div id="notification-close-btn" class="notification__close-btn"></div>
         </div>
     <?php else: ?>
         <div
-             class="notification hidden notification_type_html"
-             data-mage-init='<?= $view->getConfigData() ?>'
+            class="notification hidden notification_type_html"
+            data-mage-init='<?= $block->escapeHtmlAttr($view->getConfigData()) ?>'
         >
-            <?= $view->getHtmlContent() ?>
+            <?= $block->escapeHtml($view->getHtmlContent()) ?>
             <div id="notification-close-btn" class="notification__close-btn"></div>
         </div>
     <?php endif; ?>

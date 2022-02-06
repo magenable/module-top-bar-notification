@@ -16,10 +16,6 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 
-/**
- * Class Notification
- * @package Magenable\TopBarNotification\ViewModel
- */
 class Notification implements ArgumentInterface
 {
     /**

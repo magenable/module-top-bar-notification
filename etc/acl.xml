@@ -8,15 +8,15 @@
  * @copyright   Copyright (c) Magenable (https://magenable.com.au/)
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="Magento_Backend::stores">
-                    <resource id="Magento_Backend::stores_settings">
-                        <resource id="Magento_Config::config">
-                            <resource id="Magenable_TopbarNotification::topbarnotification" title="Magenable Top Bar Notification Section" />
-                        </resource>
+                <resource id="Magenable_Base::magenable">
+                    <resource id="Magenable_TopbarNotification::TopbarNotification" title="Top Bar Notification"
+                              sortOrder="10">
+                        <resource id="Magenable_TopbarNotification::config" title="Configuration" sortOrder="10"/>
                     </resource>
                 </resource>
             </resource>

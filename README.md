@@ -27,7 +27,7 @@ php bin/magento setup:static-content:deploy
 
 ### Configuration
 
-Go to Stores > Settings > Configuration > Magenable > Top Bar Notification.
+Go to **Stores** > **Settings** > **Configuration** > **Magenable Extensions** > **Top Bar Notification**.
 
 *General Settings*
 

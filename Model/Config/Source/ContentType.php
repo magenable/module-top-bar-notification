@@ -13,10 +13,6 @@ namespace Magenable\TopBarNotification\Model\Config\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
 
-/**
- * Class ContentType
- * @package Magenable\TopBarNotification\Model\Config\Source
- */
 class ContentType implements OptionSourceInterface
 {
     const HTML = 1;
@@ -33,4 +29,3 @@ class ContentType implements OptionSourceInterface
         ];
     }
 }
-
