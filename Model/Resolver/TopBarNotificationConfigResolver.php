@@ -5,6 +5,7 @@ namespace Magenable\TopBarNotification\Model\Resolver;
 
 use Magenable\TopBarNotification\ViewModel\Notification;
 use Magento\Framework\GraphQl\Config\Element\Field;
+use Magento\Framework\GraphQl\Query\Resolver\ContextInterface;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 
@@ -17,6 +18,7 @@ class TopBarNotificationConfigResolver implements ResolverInterface
 
     /**
      * TopBarNotificationConfigResolver constructor.
+     *
      * @param Notification $notification
      */
     public function __construct(
@@ -25,8 +27,23 @@ class TopBarNotificationConfigResolver implements ResolverInterface
         $this->notification = $notification;
     }
 
-    public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null): array
-    {
+    /**
+     * Returns configuration of the module
+     *
+     * @param Field $field
+     * @param ContextInterface $context
+     * @param ResolveInfo $info
+     * @param array|null $value
+     * @param array|null $args
+     * @return array
+     */
+    public function resolve(
+        Field $field,
+        $context,
+        ResolveInfo $info,
+        array $value = null,
+        array $args = null
+    ): array {
         return [
             'enabled' => $this->notification->isEnabled(),
             'is_text' => $this->notification->isTextNotification(),

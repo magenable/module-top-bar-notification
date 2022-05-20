@@ -15,13 +15,13 @@ use Magento\Framework\Data\OptionSourceInterface;
 
 class ContentType implements OptionSourceInterface
 {
-    const HTML = 1;
-    const TEXT = 2;
+    public const HTML = 1;
+    public const TEXT = 2;
 
     /**
      * @inheritDoc
      */
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
         return [
             ['value' => self::HTML, 'label' => __('HTML')],

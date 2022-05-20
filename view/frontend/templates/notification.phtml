@@ -17,12 +17,12 @@ $view = $block->getData('details');
         <div
             class="notification hidden notification_type_text"
             data-mage-init='<?= $block->escapeHtmlAttr($view->getConfigData()) ?>'
-            style="background-color: <?= $block->escapeCss($view->getBackgroundColor()); ?>"
+            style="background-color: <?= /* @noEscape */ $view->getBackgroundColor() ?>"
         >
             <div class="notification__text"
                  style="
-                     color: <?= $block->escapeCss($view->getTextColor()) ?>;
-                     font-size: <?= $block->escapeCss($view->getFontSize()) ?>
+                     color: <?= /* @noEscape */ $view->getTextColor() ?>;
+                     font-size: <?= /* @noEscape */ $view->getFontSize() ?>
                      ">
                 <?= $block->escapeHtml($view->getText()) ?>
             </div>
@@ -33,7 +33,7 @@ $view = $block->getData('details');
             class="notification hidden notification_type_html"
             data-mage-init='<?= $block->escapeHtmlAttr($view->getConfigData()) ?>'
         >
-            <?= $block->escapeHtml($view->getHtmlContent()) ?>
+            <?= $view->getHtmlContent() ?>
             <div id="notification-close-btn" class="notification__close-btn"></div>
         </div>
     <?php endif; ?>
