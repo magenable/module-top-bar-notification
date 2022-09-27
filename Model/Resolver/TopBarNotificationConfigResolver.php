@@ -14,7 +14,7 @@ class TopBarNotificationConfigResolver implements ResolverInterface
     /**
      * @var Notification
      */
-    private Notification $notification;
+    private $notification;
 
     /**
      * TopBarNotificationConfigResolver constructor.

@@ -6,8 +6,8 @@
  * @copyright   Copyright (c) Magenable (https://magenable.com.au/)
  */
 define([
-    "jquery",
-    "jquery/jquery.cookie"
+    'jquery',
+    'mage/cookies'
 ], function($) {
     "use strict";
 
@@ -15,12 +15,12 @@ define([
         if (!checkUrl(config.includePages, config.excludePages)) {
             return false;
         }
-        if (!$.cookie('top_bar_notification_closed')) {
+        if (!$.mage.cookies.get('top_bar_notification_closed')) {
             $(element).removeClass('hidden');
         }
         $(config.closeBtnSelector).on('click', function() {
             $(element).fadeOut(300);
-            $.cookie('top_bar_notification_closed', true);
+            $.mage.cookies.set('top_bar_notification_closed', true);
         });
     }
 

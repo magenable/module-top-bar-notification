@@ -11,30 +11,23 @@ declare(strict_types=1);
 /** @var $block \Magento\Framework\View\Element\Template */
 /** @var $view \Magenable\TopBarNotification\ViewModel\Notification */
 $view = $block->getData('details');
+$escaper = $view->getEscaper(); // get escaper from view model for backward compatibility
 ?>
-<?php if ($view->isEnabled()): ?>
-    <?php if ($view->isTextNotification()): ?>
-        <div
-            class="notification hidden notification_type_text"
-            data-mage-init='<?= $block->escapeHtmlAttr($view->getConfigData()) ?>'
-            style="background-color: <?= /* @noEscape */ $view->getBackgroundColor() ?>"
-        >
-            <div class="notification__text"
-                 style="
-                     color: <?= /* @noEscape */ $view->getTextColor() ?>;
-                     font-size: <?= /* @noEscape */ $view->getFontSize() ?>
-                     ">
-                <?= $block->escapeHtml($view->getText()) ?>
-            </div>
-            <div id="notification-close-btn" class="notification__close-btn"></div>
-        </div>
-    <?php else: ?>
-        <div
-            class="notification hidden notification_type_html"
-            data-mage-init='<?= $block->escapeHtmlAttr($view->getConfigData()) ?>'
-        >
-            <?= $view->getHtmlContent() ?>
-            <div id="notification-close-btn" class="notification__close-btn"></div>
-        </div>
-    <?php endif; ?>
+<?php if ($view->isTextNotification()): ?>
+<div class="top-bar-notification hidden tbn-type-text"
+    data-mage-init='<?= $escaper->escapeHtmlAttr($view->getConfigData()) ?>'
+    style="background-color: <?= /* @noEscape */ $view->getBackgroundColor() ?>">
+    <div class="tbn-text" style="
+             color: <?= /* @noEscape */ $view->getTextColor() ?>;
+             font-size: <?= /* @noEscape */ $view->getFontSize() ?>">
+        <?= $escaper->escapeHtml($view->getText()) ?>
+    </div>
+    <div id="tbn-close-btn" class="tbn-close-btn"></div>
+</div>
+<?php else: ?>
+<div class="top-bar-notification hidden tbn-type-html"
+    data-mage-init='<?= $escaper->escapeHtmlAttr($view->getConfigData()) ?>'>
+    <?= $view->getHtmlContent() ?>
+    <div id="tbn-close-btn" class="tbn-close-btn"></div>
+</div>
 <?php endif; ?>
