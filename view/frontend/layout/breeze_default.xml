@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magenable
+ *
+ * @category    Magenable
+ * @package     Magenable_TopBarNotification
+ * @copyright   Copyright (c) Magenable (https://magenable.com.au/)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="breeze.js">
+            <arguments>
+                <argument name="bundles" xsi:type="array">
+                    <item name="default" xsi:type="array">
+                        <item name="items" xsi:type="array">
+                            <item name="notification" xsi:type="string">Magenable_TopBarNotification/js/breeze/notification</item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>
