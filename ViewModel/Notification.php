@@ -16,6 +16,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
+use Magento\Store\Model\ScopeInterface;
 
 class Notification implements ArgumentInterface
 {
@@ -116,13 +117,16 @@ class Notification implements ArgumentInterface
      *
      * @param string $group
      * @param string $field
-     *
+     * @param string $scope
      * @return mixed
      */
-    private function getConfigValue(string $group, string $field)
-    {
+    private function getConfigValue(
+        string $group,
+        string $field,
+        string $scope = ScopeInterface::SCOPE_STORE
+    ) {
         $path = "topbar_notification/$group/$field";
 
-        return $this->scopeConfig->getValue($path);
+        return $this->scopeConfig->getValue($path, $scope);
     }
 }
