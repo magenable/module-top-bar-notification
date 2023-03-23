@@ -5,7 +5,14 @@
 **The extension was developed as a quick way to display COVID-19 notice, but can be used for other notices as well**
 
 ## PWA Studio
-The extension for Magento PWA Studio you can find here: https://www.npmjs.com/package/@magenable/top-bar-notification
+The extension for Magento PWA Studio can be found here: https://www.npmjs.com/package/@magenable/top-bar-notification
+
+## Hyvä themes
+The module for compatibility with the Hyvä theme can be found here:
+https://gitlab.hyva.io/hyva-themes/hyva-compat/magento2-magenable-top-bar-notification
+
+## Breeze themes
+This module is compatible with **Swissup/breeze** themes
 
 ## Final result
 
