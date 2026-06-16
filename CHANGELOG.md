@@ -1,3 +1,7 @@
+1.3.11 (2026-06-16)
+=============
+- Tested with Magento v2.4.9 and PHP 8.5
+
 1.3.10 (2025-07-04)
 =============
 - Tested with Magento v2.4.8-p1
