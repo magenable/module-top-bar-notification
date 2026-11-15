@@ -68,8 +68,8 @@ class Notification implements ArgumentInterface
     public function getFontSize(): string
     {
         $value = 'auto';
-        $confValue = (string)$this->getConfigValue('design', 'font_size');
-        if (null !== $confValue) {
+        $confValue = trim((string)$this->getConfigValue('design', 'font_size'));
+        if ('' !== $confValue) {
             $value = $confValue . 'px';
         }
 
