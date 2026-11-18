@@ -1,3 +1,7 @@
+1.3.13 (2026-11-18)
+=============
+- Fixed the font size fallback
+
 1.3.12 (2026-10-26)
 =============
 - Tested with Magento v2.4.10-alpha1
